@@ -22,6 +22,7 @@ public class HitTarget : MonoBehaviour
                 StarRigidBody.linearVelocity = Vector3.zero;
                 StarRigidBody.gravityScale = 0;
 
+                //TODO:: Añadir sonido al chocar con suelo.
                 StartCoroutine(DelayedDespawn());
             }
             if (IsTouchingEnemy)
@@ -32,6 +33,8 @@ public class HitTarget : MonoBehaviour
                 {
                     ReceiveDamageScript.ReceiveDamage();
                 }
+
+                //TODO:: Añadir sonido al chocar con un enemigo.
                 Destroy(this.gameObject);
             }
         }

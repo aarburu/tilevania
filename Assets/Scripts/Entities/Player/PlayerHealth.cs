@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Xml;
 using TMPro;
 using UnityEngine;
 
+[Obsolete("Lógica separada entre UI / Controller para poder manejar la vida de los NPCs y el jugador de la misma forma, además de añadir soporte a ScriptableObjects.", true)]
 public class PlayerHealth : MonoBehaviour
 {
     // Referencias UI. TODO:: Sacar a un HealthSystem para separar la lógica.

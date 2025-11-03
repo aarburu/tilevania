@@ -742,23 +742,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550165364}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0c1de1eabb43d64d8db89af16381364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   HealthBarUI: {fileID: 800624418}
   heartPrefab: {fileID: 8328865944779188547, guid: 0a2ce4522648cb74e8c37578c48f028b, type: 3}
-  FullHeartSprite: {fileID: 21300000, guid: 979092bc0e5d47d408dbad7ad241bb23, type: 3}
+  FullHeartSprite: {fileID: 2350297403280568894, guid: 979092bc0e5d47d408dbad7ad241bb23, type: 3}
   EmptyHeartSprite: {fileID: -705465144167411356, guid: 233974a2ce5597a458d1d857aec9e964, type: 3}
   colourA: {r: 1, g: 0, b: 0, a: 1}
   colourB: {r: 1, g: 1, b: 1, a: 1}
   interval: 0.5
---- !u!1 &594907520 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3245465982246961219, guid: 038694fc7ef8b774eb9ad853b2e741b9, type: 3}
-  m_PrefabInstance: {fileID: 7877429557759698873}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,10 +1949,8 @@ GameObject:
   - component: {fileID: 800624419}
   - component: {fileID: 800624421}
   - component: {fileID: 800624420}
-  - component: {fileID: 800624423}
-  - component: {fileID: 800624422}
   m_Layer: 0
-  m_Name: HealthUI
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1979,8 +1972,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 294.7979, y: -54.98001}
-  m_SizeDelta: {x: 505.9396, y: 73.2955}
+  m_AnchoredPosition: {x: 458.6, y: -78.70999}
+  m_SizeDelta: {x: 833.5438, y: 120.755615}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &800624420
 MonoBehaviour:
@@ -2000,7 +1993,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 0
+  m_Spacing: 21.3
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -2016,43 +2009,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800624418}
   m_CullTransparentMesh: 1
---- !u!114 &800624422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800624418}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c1de1eabb43d64d8db89af16381364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
-  HealthBarUI: {fileID: 800624418}
-  heartPrefab: {fileID: 8328865944779188547, guid: 0a2ce4522648cb74e8c37578c48f028b, type: 3}
-  FullHeartSprite: {fileID: 21300000, guid: 979092bc0e5d47d408dbad7ad241bb23, type: 3}
-  EmptyHeartSprite: {fileID: -705465144167411356, guid: 233974a2ce5597a458d1d857aec9e964, type: 3}
-  colourA: {r: 1, g: 0, b: 0, a: 1}
-  colourB: {r: 1, g: 1, b: 1, a: 1}
-  interval: 0.5
---- !u!114 &800624423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800624418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f57da3f2f98344bbef4aeec8b71198, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthUI
-  heartPrefab: {fileID: 8328865944779188547, guid: 0a2ce4522648cb74e8c37578c48f028b, type: 3}
-  fullHeart: {fileID: 21300000, guid: 979092bc0e5d47d408dbad7ad241bb23, type: 3}
-  emptyHeart: {fileID: -705465144167411356, guid: 233974a2ce5597a458d1d857aec9e964, type: 3}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  flashInterval: 0.5
 --- !u!1 &845517781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,7 +2026,6 @@ GameObject:
   - component: {fileID: 845517788}
   - component: {fileID: 845517789}
   - component: {fileID: 845517790}
-  - component: {fileID: 845517791}
   m_Layer: 11
   m_Name: Boo
   m_TagString: Untagged
@@ -2302,7 +2257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845517781}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e31320f8ce0d96e48b98d9334d3f034b, type: 3}
   m_Name: 
@@ -2319,23 +2274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fd92eef81153242af117af54e17d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReceiveDamage
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  knockbackForce: 5
-  knockbackDuration: 0.1
---- !u!114 &845517791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845517781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4641895a5906ea54fb613edba83eed04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthController
-  healthConfig: {fileID: 11400000, guid: 9d88fb1ab7f1ba249a15b3832bd56548, type: 2}
 --- !u!1 &865185953
 GameObject:
   m_ObjectHideFlags: 0
@@ -15718,7 +15656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1829965810
 Transform:
   m_ObjectHideFlags: 0
@@ -15745,37 +15683,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7304648035666309522, guid: 038694fc7ef8b774eb9ad853b2e741b9, type: 3}
   m_PrefabInstance: {fileID: 7877429557759698873}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1866939225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594907520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4641895a5906ea54fb613edba83eed04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthController
-  healthConfig: {fileID: 11400000, guid: 0d2a029fcea61154a97cd41647265003, type: 2}
---- !u!114 &1866939226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594907520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6891dfb0ad4147147b0c346a12c3632a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PertsonaiMugimendua
-  mugiAbiadura: 5
-  saltoIndarra: 25
-  ClimbingVelocity: 5
-  ProyectileVelocity: 15
-  ProyectilePrefab: {fileID: 3752090371712541613, guid: 778c07ad66eb81d438961a31fde30bab, type: 3}
-  ProyectileSpawnPoint: {fileID: 7877429557759698874}
 --- !u!1 &1873275120
 GameObject:
   m_ObjectHideFlags: 0
@@ -22189,17 +22096,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.24
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 770003054904799020, guid: 038694fc7ef8b774eb9ad853b2e741b9, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3245465982246961219, guid: 038694fc7ef8b774eb9ad853b2e741b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1866939225}
-    - targetCorrespondingSourceObject: {fileID: 3245465982246961219, guid: 038694fc7ef8b774eb9ad853b2e741b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1866939226}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 038694fc7ef8b774eb9ad853b2e741b9, type: 3}
 --- !u!4 &7877429557759698874 stripped
 Transform:

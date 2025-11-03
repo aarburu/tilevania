@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
+[Obsolete("Lógica separada entre UI / Controller para poder manejar la vida de los NPCs y el jugador de la misma forma, además de añadir soporte a ScriptableObjects.", true)]
 public class EnemyHealth : MonoBehaviour
 {
-    // TODO:: Pasar a un ScriptableObject para añadir vidas de diferentes enemigos.
     static int MAX_INITIAL_HEALTH = 3; //Vida máxima inicial.
     int CurrentMaxHealth { get; set; } = MAX_INITIAL_HEALTH;
     public int CurrentHealth { get; set; } = MAX_INITIAL_HEALTH;

@@ -8,7 +8,7 @@ public class ReceiveDamage : MonoBehaviour
     [SerializeField] Vector2 deathKick = new Vector2(25f, 25f);
     Rigidbody2D rb;
     CapsuleCollider2D bodyCollider;
-    PlayerHealth PlayerHealth;
+    HealthController healthController;
     PertsonaiMugimendua PlayerControls;
     SpriteRenderer PlayerSprite;
     Animator PlayerAnimator;
@@ -19,7 +19,7 @@ public class ReceiveDamage : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<CapsuleCollider2D>();
-        PlayerHealth = GetComponent<PlayerHealth>();
+        healthController = GetComponent<HealthController>();
         PlayerControls = GetComponent<PertsonaiMugimendua>();
         PlayerSprite = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
@@ -32,14 +32,14 @@ public class ReceiveDamage : MonoBehaviour
 
     public void ReceiveDamageEffect()
     {
-        if (!PlayerHealth.IsDead)
+        if (!healthController.IsDead)
         {
             if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")) && !InvulneravilityActive) { 
                 ReceivePartialDamage();
             } else if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards"))) {
                 ReceiveLethalDamage();
             }
-            if (PlayerHealth.IsDead)
+            if (healthController.IsDead)
             {
                 PlayerControls.DisableControls();
                 PlayerAnimator.SetTrigger("Death");
@@ -51,13 +51,13 @@ public class ReceiveDamage : MonoBehaviour
 
     private void ReceiveLethalDamage()
     {
-        PlayerHealth.ReceiveLethalDamage();
+        healthController.ReceiveLethalDamage();
     }
 
     private void ReceivePartialDamage()
     {
         InvulneravilityActive = true;
-        PlayerHealth.ReceiveDamage();
+        healthController.ReceiveDamage();
         PlayerSprite.color = Color.red;
         StartCoroutine(DeactivateInvulnerability());
     }

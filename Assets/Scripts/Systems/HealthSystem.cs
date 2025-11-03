@@ -1,21 +1,29 @@
-﻿using System.Collections;
-using System.Xml;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
+
+[Obsolete("Lógica separada entre UI / Controller para poder manejar la vida de los NPCs y el jugador de la misma forma, además de añadir soporte a ScriptableObjects.", true)]
 public class HealthSystem : Singleton<HealthSystem>
 {
     // Referencias UI. TODO:: Sacar a un HealthSystem para separar la lógica.
-    [field: SerializeField] TMP_Text HealthUIReference;
+    //[field: SerializeField] TMP_Text HealthUIReference;
+    [field: SerializeField] GameObject HealthBarUI;
+
+    [field: SerializeField] GameObject heartPrefab;
+    [field: SerializeField] Sprite FullHeartSprite;
+    [field: SerializeField] Sprite EmptyHeartSprite;
 
     [field: SerializeField] private Color colourA = Color.red;
     [field: SerializeField] private Color colourB = Color.white;
-    [field: SerializeField] private Color DeadColour = Color.gray;
+    //[field: SerializeField] private Color DeadColour = Color.gray;
 
     [field: SerializeField] private float interval = 0.5f;
     private Coroutine flashRoutine;
-
+    private List<GameObject> HeartList = new();
 
     static int MAX_INITIAL_HEALTH = 3;
     int CurrentMaxHealth { get; set; } = MAX_INITIAL_HEALTH;
@@ -24,6 +32,7 @@ public class HealthSystem : Singleton<HealthSystem>
 
     private void Start()
     {
+        InitializeHearts(CurrentMaxHealth);
         UpdateUI();
     }
 
@@ -49,9 +58,18 @@ public class HealthSystem : Singleton<HealthSystem>
         }
     }
 
+    public void IncreaseMaxHealth()
+    {
+        this.CurrentMaxHealth++;
+        SetMaxLives(CurrentMaxHealth);
+        CurrentHealth = CurrentMaxHealth;
+        UpdateUI();
+    }
+
     private void UpdateUI()
     {
-        HealthUIReference.text = $"HP: {this.CurrentHealth}";
+        //HealthUIReference.text = $"HP: {this.CurrentHealth}";
+        UpdateHearts(CurrentHealth);
         ActivateLowHPEffect();
     }
 
@@ -68,7 +86,6 @@ public class HealthSystem : Singleton<HealthSystem>
         else
         {
             StopFlashing();
-            HealthUIReference.color = DeadColour;
         }
     }
 
@@ -84,7 +101,8 @@ public class HealthSystem : Singleton<HealthSystem>
         {
             StopCoroutine(flashRoutine);
             flashRoutine = null;
-            HealthUIReference.color = colourB;
+            HealthBarUI.transform.GetChild(0).GetComponent<Image>().color = colourB;
+            //HealthUIReference.color = colourB;
         }
     }
 
@@ -93,9 +111,42 @@ public class HealthSystem : Singleton<HealthSystem>
         bool toggle = false;
         while (true)
         {
-            HealthUIReference.color = toggle ? colourA : colourB;
+            HealthBarUI.transform.GetChild(0).GetComponent<Image>().color = toggle ? colourA : colourB;
+            //HealthUIReference.color = toggle ? colourA : colourB;
             toggle = !toggle;
             yield return new WaitForSeconds(interval);
         }
     }
+
+    public void InitializeHearts(int maxLives)
+    {
+        for (int i = 0; i < maxLives; i++)
+        {
+            GameObject heartGO = Instantiate(heartPrefab, HealthBarUI.transform);
+            HeartList.Add(heartGO);
+        }
+    }
+
+    public void UpdateHearts(int currentLives)
+    {
+        for (int i = 0; i < HeartList.Count; i++)
+        {
+            HeartList[i].GetComponent<Image>().sprite = i < currentLives ? FullHeartSprite : EmptyHeartSprite;
+        }
+    }
+
+    public void SetMaxLives(int newMax)
+    {
+        int currentCount = HeartList.Count;
+
+        if (newMax > currentCount)
+        {
+            for (int i = currentCount; i < newMax; i++)
+            {
+                GameObject heartGO = Instantiate(heartPrefab, HealthBarUI.transform);
+                HeartList.Add(heartGO);
+            }
+        }
+    }
+
 }

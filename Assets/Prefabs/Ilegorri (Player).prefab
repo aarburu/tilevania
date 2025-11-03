@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 6867987244285912526}
   - component: {fileID: 7425344061347062330}
   - component: {fileID: 887311297072305283}
-  - component: {fileID: 770003054904799020}
-  - component: {fileID: 3710273051227556976}
-  - component: {fileID: 468595773992825172}
+  - component: {fileID: 9217918117690774279}
+  - component: {fileID: 8640957451206706444}
+  - component: {fileID: 4466110047621182334}
+  - component: {fileID: 2720350105469733139}
   m_Layer: 8
   m_Name: Ilegorri (Player)
   m_TagString: Untagged
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1474149205
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 1857188551261513057, guid: 46baa6e248e2ef7488358c654b4cdf21, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -261,7 +262,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &770003054904799020
+--- !u!114 &9217918117690774279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,13 +271,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 3245465982246961219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28ddfcee9daf47542ad67f564d370438, type: 3}
+  m_Script: {fileID: 11500000, guid: 4641895a5906ea54fb613edba83eed04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthController
+  healthConfig: {fileID: 11400000, guid: 0d2a029fcea61154a97cd41647265003, type: 2}
+--- !u!114 &8640957451206706444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3245465982246961219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6891dfb0ad4147147b0c346a12c3632a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PertsonaiMugimendua
   mugiAbiadura: 5
   saltoIndarra: 25
   ClimbingVelocity: 5
---- !u!114 &3710273051227556976
+  ProyectileVelocity: 15
+  ProyectilePrefab: {fileID: 3752090371712541613, guid: 778c07ad66eb81d438961a31fde30bab, type: 3}
+  ProyectileSpawnPoint: {fileID: 2960041257581044848}
+--- !u!114 &4466110047621182334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,22 +302,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3245465982246961219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece853a0497b4cf4abe9b334fa618ced, type: 3}
+  m_Script: {fileID: 11500000, guid: 727ea697c3a2d384aa83581e66dd71aa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSetup
+  healthUI: {fileID: 0}
+--- !u!114 &2720350105469733139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3245465982246961219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daccb352ae8adfb4984b3df7f522e2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReceiveDamage
   deathKick: {x: 25, y: 25}
---- !u!114 &468595773992825172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245465982246961219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6891490e0bafec34cbb3fd431df744fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &8320591083970937746
 GameObject:
   m_ObjectHideFlags: 0
