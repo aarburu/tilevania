@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e6c25c7c80ef324990ddeb19dcaab5f, type: 3}
+  m_Script: {fileID: 11500000, guid: c5c65ac9839b3534d8db97e4664fa8a7, type: 3}
   m_Name: Player Health
-  m_EditorClassIdentifier: Assembly-CSharp::HealthData
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthData
   baseMaxHealth: 3
-  canRegenerate: 0
-  regenerationRate: 0
   isImmortal: 0
+  PlayerLives: 5

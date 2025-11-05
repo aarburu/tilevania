@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private GameObject heartPrefab;
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
+    [SerializeField] private TMP_Text livesText;
+
+    [Header("Variables")]
     [SerializeField] private Color flashColor = Color.red;
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private float flashInterval = 0.5f;
@@ -19,7 +24,9 @@ public class HealthUI : MonoBehaviour
     {
         InitializeHearts(health.MaxHealth);
         UpdateHearts(health.CurrentHealth, health.MaxHealth);
+        UpdateLives(health.PlayerLives);
 
+        health.OnLivesChanged += UpdateLives;
         health.OnHealthChanged += UpdateHearts;
         health.OnDeath += StopFlashing;
     }
@@ -45,6 +52,11 @@ public class HealthUI : MonoBehaviour
             StartFlashing();
         else
             StopFlashing();
+    }
+
+    private void UpdateLives(int currentLives)
+    {
+        this.livesText.text = $"Lives: {currentLives.ToString()}";
     }
 
     private void StartFlashing()

@@ -15,6 +15,13 @@ public class ReceiveDamage : MonoBehaviour
 
     private bool InvulneravilityActive = false;
 
+    private void OnDestroy()
+    {
+        Debug.Log("OnDestroy");
+
+        healthController.OnDeath -= HealthController_OnDeath;
+
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,6 +30,8 @@ public class ReceiveDamage : MonoBehaviour
         PlayerControls = GetComponent<PertsonaiMugimendua>();
         PlayerSprite = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
+        Debug.Log("Start");
+        healthController.OnDeath += HealthController_OnDeath;
     }
 
     private void Update()
@@ -39,13 +48,23 @@ public class ReceiveDamage : MonoBehaviour
             } else if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards"))) {
                 ReceiveLethalDamage();
             }
-            if (healthController.IsDead)
-            {
-                PlayerControls.DisableControls();
-                PlayerAnimator.SetTrigger("Death");
-                rb.linearVelocity = deathKick;
-            }
+            
         }
+
+    }
+
+    private void HealthController_OnDeath()
+    {
+        StartCoroutine(Death());
+    }
+
+    private IEnumerator Death()
+    {
+        rb.linearVelocity = deathKick;
+        PlayerControls.DisableControls();
+        PlayerAnimator.SetTrigger("Death");
+        yield return new WaitForSecondsRealtime(3f);
+        healthController.ProcessPlayerDeath();
 
     }
 

@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 6867987244285912526}
   - component: {fileID: 7425344061347062330}
   - component: {fileID: 887311297072305283}
-  - component: {fileID: 9217918117690774279}
-  - component: {fileID: 8640957451206706444}
   - component: {fileID: 4466110047621182334}
   - component: {fileID: 2720350105469733139}
+  - component: {fileID: 4972113987162479316}
+  - component: {fileID: 453621663689379863}
   m_Layer: 8
   m_Name: Ilegorri (Player)
   m_TagString: Untagged
@@ -262,37 +262,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &9217918117690774279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245465982246961219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4641895a5906ea54fb613edba83eed04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthController
-  healthConfig: {fileID: 11400000, guid: 0d2a029fcea61154a97cd41647265003, type: 2}
---- !u!114 &8640957451206706444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245465982246961219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6891dfb0ad4147147b0c346a12c3632a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PertsonaiMugimendua
-  mugiAbiadura: 5
-  saltoIndarra: 25
-  ClimbingVelocity: 5
-  ProyectileVelocity: 15
-  ProyectilePrefab: {fileID: 3752090371712541613, guid: 778c07ad66eb81d438961a31fde30bab, type: 3}
-  ProyectileSpawnPoint: {fileID: 2960041257581044848}
 --- !u!114 &4466110047621182334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +288,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReceiveDamage
   deathKick: {x: 25, y: 25}
+--- !u!114 &4972113987162479316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3245465982246961219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4641895a5906ea54fb613edba83eed04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthController
+  healthConfig: {fileID: 11400000, guid: 0d2a029fcea61154a97cd41647265003, type: 2}
+--- !u!114 &453621663689379863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3245465982246961219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6891dfb0ad4147147b0c346a12c3632a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PertsonaiMugimendua
+  mugiAbiadura: 5
+  saltoIndarra: 25
+  ClimbingVelocity: 5
+  ProyectileVelocity: 15
+  ProyectilePrefab: {fileID: 3752090371712541613, guid: 778c07ad66eb81d438961a31fde30bab, type: 3}
+  ProyectileSpawnPoint: {fileID: 2960041257581044848}
 --- !u!1 &8320591083970937746
 GameObject:
   m_ObjectHideFlags: 0
