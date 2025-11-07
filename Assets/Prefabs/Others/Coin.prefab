@@ -167,3 +167,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   CoinCollectAudio: {fileID: 8300000, guid: e8b1289ad7f5e164f952ebdb0ca4e0c4, type: 3}
+  CoinData: {fileID: 11400000, guid: 6d856ea62ffa09a478b39c2a88460d84, type: 2}

@@ -5,12 +5,18 @@ using UnityEngine.XR;
 
 public class PlayerSetup : MonoBehaviour
 {
-    [SerializeField] private HealthUI healthUI;
+    //[SerializeField] private HealthUI healthUI;
 
     void Start()
     {
+        Debug.Log("PlayerSetup: Start");
         //Provoco que se cargue el HealthController del jugador para hacer un bindeo con la UI.
-        var health = GetComponent<HealthController>();
-        healthUI.Bind(health);
+        var healthController = GetComponent<HealthController>();
+        var coinController = GetComponent<CoinController>();
+        var healthUI = FindFirstObjectByType<HealthUI>();
+        var coinsUI = FindFirstObjectByType<CoinsUI>();
+        
+        healthUI.Bind(healthController);
+        coinsUI.Bind(coinController);
     }
 }

@@ -18,12 +18,18 @@ public class HealthController : MonoBehaviour
 
     private void Start()
     {
-        MaxHealth = healthConfig.baseMaxHealth;
-        //En caso de que sea el jugador, obtenemos los datos de GameSession, si es que existen.
+        LoadHP();
+    }
 
+    void LoadHP()
+    {
+        MaxHealth = healthConfig.baseMaxHealth;
+        CurrentHealth = MaxHealth;
+
+        //En caso de que sea el jugador, obtenemos los datos de GameSession, si es que existen.
         if (IsPlayer)
         {
-            PlayerLives = ((PlayerHealthData) healthConfig).PlayerLives;
+            PlayerLives = ((PlayerHealthData)healthConfig).PlayerLives;
             if (GameSession.Instance != null && GameSession.Instance.MaxHealth > 0)
             {
                 MaxHealth = GameSession.Instance.MaxHealth;
@@ -32,14 +38,13 @@ public class HealthController : MonoBehaviour
             }
             else
             {
-                CurrentHealth = MaxHealth;
 
                 GameSession.Instance?.InitializeHealth(MaxHealth);
                 GameSession.Instance?.InitializeLives(PlayerLives);
             }
+            OnLivesChanged?.Invoke(PlayerLives);
         }
 
-        OnLivesChanged?.Invoke(PlayerLives);
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
@@ -49,7 +54,7 @@ public class HealthController : MonoBehaviour
         {
             Debug.Log($"CurrentHealth: {CurrentHealth}");
             GameSession.Instance?.UpdateHealth(CurrentHealth);
-            GameSession.Instance?.UpdateLives(CurrentHealth);
+            GameSession.Instance?.UpdateLives(PlayerLives);
 
         }
     }
@@ -102,7 +107,11 @@ public class HealthController : MonoBehaviour
     private void TakeLife()
     {
         PlayerLives--;
+        CurrentHealth = MaxHealth;
         OnLivesChanged?.Invoke(PlayerLives);
+        UpdateGameSessionHealth();
+        LoadHP();
+        
 
         GameSession.Instance.ReloadScene();
     }

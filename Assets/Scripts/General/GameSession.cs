@@ -9,6 +9,8 @@ public class GameSession : Singleton<GameSession>
     public int MaxLives { get; private set; } = 99; //TODO:: Quitar el hardcodeo.
     public int CurrentHealth { get; private set; }
 
+    public int Coins { get; private set; } = 0;
+
     public void InitializeHealth(int maxHealth)
     {
         MaxHealth = maxHealth;
@@ -19,10 +21,14 @@ public class GameSession : Singleton<GameSession>
     {
         PlayerLives = playerLives;
     }
+    public void InitializeCoins()
+    {
+        Coins = 0;
+    }
 
     public void UpdateLives(int playerLives)
     {
-        CurrentHealth = Mathf.Clamp(playerLives, 0, MaxLives);
+        PlayerLives = Mathf.Clamp(playerLives, 0, MaxLives);
     }
 
     public void UpdateHealth(int current)
@@ -34,11 +40,17 @@ public class GameSession : Singleton<GameSession>
     {
         MaxHealth = 0;
         CurrentHealth = 0;
+        InitializeCoins();
         SceneManager.LoadScene(0);
     }
 
     internal void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    internal void UpdateCoins(int Coins)
+    {
+        this.Coins = Coins;
     }
 }

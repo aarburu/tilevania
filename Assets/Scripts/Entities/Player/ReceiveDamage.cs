@@ -19,7 +19,8 @@ public class ReceiveDamage : MonoBehaviour
     {
         Debug.Log("OnDestroy");
 
-        healthController.OnDeath -= HealthController_OnDeath;
+        if (healthController != null )
+            healthController.OnDeath -= HealthController_OnDeath;
 
     }
     private void Start()
@@ -30,7 +31,6 @@ public class ReceiveDamage : MonoBehaviour
         PlayerControls = GetComponent<PertsonaiMugimendua>();
         PlayerSprite = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
-        Debug.Log("Start");
         healthController.OnDeath += HealthController_OnDeath;
     }
 
