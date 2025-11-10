@@ -7,9 +7,9 @@ public class PertsonaiMugimendua : MonoBehaviour
 {
     Vector2 moveInput;
     [SerializeField] float mugiAbiadura = 5f;
-    [SerializeField] float saltoIndarra = 5f;
+    [SerializeField] float saltoIndarra = 18f;
     [SerializeField] float ClimbingVelocity = 5f;
-    [SerializeField] float ProyectileVelocity = 25f;
+    [SerializeField] float ProyectileVelocity = 15f;
     [SerializeField] GameObject ProyectilePrefab;
     [SerializeField] Transform ProyectileSpawnPoint;
     Rigidbody2D rb;
@@ -24,6 +24,8 @@ public class PertsonaiMugimendua : MonoBehaviour
     private bool IsOnLadder => !FeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && BodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")); 
 
     private bool CanClimbLadder => FeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && BodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
+    private bool IsInWater => BodyCollider.IsTouchingLayers(LayerMask.GetMask("Water"));
+    private bool IsOnWaterSurface => BodyCollider.IsTouchingLayers(LayerMask.GetMask("WaterSurface"));
 
     private void Start()
     {
@@ -42,6 +44,7 @@ public class PertsonaiMugimendua : MonoBehaviour
         Climb();
         FlipSprite();
         RunningAnimation();
+        AjustarGravedad();
     }
 
     void OnAttack()
@@ -101,9 +104,28 @@ public class PertsonaiMugimendua : MonoBehaviour
     void OnJump()
     {
         if (ControlsDisabled) return;
-        if (this.IsGrounded)
+
+        if (IsInWater && !IsOnWaterSurface)
+        {
+            float saltoEnAgua = saltoIndarra * 0.17f;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, saltoEnAgua);
+        } else if (IsGrounded || IsOnWaterSurface)
+        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, saltoIndarra);
+        }
     }
+    private void AjustarGravedad()
+    {
+        if (IsInWater)
+        {
+            rb.gravityScale = gravityScale * 0.1f; // gravedad reducida en agua
+        }
+        else if (!IsOnLadder)
+        {
+            rb.gravityScale = gravityScale; // gravedad normal
+        }
+    }
+
 
     void Run()
     {
@@ -113,5 +135,11 @@ public class PertsonaiMugimendua : MonoBehaviour
     public void DisableControls()
     {
         ControlsDisabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+            rb.linearVelocityY = 0.5f;
     }
 }
