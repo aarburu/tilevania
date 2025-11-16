@@ -49,8 +49,7 @@ public class GameSession : Singleton<GameSession>
     {
         MaxHealth = 0;
         CurrentHealth = 0;
-        InitializeCoins();
-        levelManager.LoadGameOver();
+        
 
         StartCoroutine(WaitAndLoad("_GameOver", sceneLoadDelay));
     }

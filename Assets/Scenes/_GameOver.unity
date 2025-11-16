@@ -886,8 +886,9 @@ GameObject:
   - component: {fileID: 1114030255}
   - component: {fileID: 1114030257}
   - component: {fileID: 1114030256}
+  - component: {fileID: 1114030258}
   m_Layer: 5
-  m_Name: SubTitle
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -932,7 +933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Txanponen bila
+  m_text: 'Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 651cbab8de719eb4596d5fe4f7b7a3c3, type: 2}
   m_sharedMaterial: {fileID: 8221463863238084582, guid: 651cbab8de719eb4596d5fe4f7b7a3c3, type: 2}
@@ -941,9 +942,9 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294948112
-  m_fontColor: {r: 0.06132078, g: 0.7104378, b: 1, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4281274623
+  m_fontColor: {r: 1, g: 0.062745094, b: 0.18570027, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -959,13 +960,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -1011,6 +1012,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114030254}
   m_CullTransparentMesh: 1
+--- !u!114 &1114030258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114030254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b9937da0b881b4d9f21d9ff071c0a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  ScoreText: {fileID: 1114030256}
 --- !u!1 &1318411646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,7 +1319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tilevania
+  m_text: Game Over
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 651cbab8de719eb4596d5fe4f7b7a3c3, type: 2}
   m_sharedMaterial: {fileID: 8221463863238084582, guid: 651cbab8de719eb4596d5fe4f7b7a3c3, type: 2}
@@ -1314,15 +1328,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4292607750
-  m_fontColor: {r: 0.023584902, g: 1, b: 0.85766906, a: 1}
+    rgba: 4278585087
+  m_fontColor: {r: 1, g: 0.02352941, b: 0.02352941, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 0, g: 0.7384406, b: 0.93333334, a: 1}
-    topRight: {r: 0, g: 0.7384406, b: 0.93333334, a: 1}
-    bottomLeft: {r: 0.0037221909, g: 0, b: 1, a: 1}
-    bottomRight: {r: 0.0037221909, g: 0, b: 1, a: 1}
+    topLeft: {r: 0.93333334, g: 0, b: 0.058497112, a: 1}
+    topRight: {r: 0.93333334, g: 0, b: 0.058497112, a: 1}
+    bottomLeft: {r: 0, g: 0, b: 0, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
