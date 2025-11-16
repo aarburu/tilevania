@@ -41,16 +41,19 @@ public class ReceiveDamage : MonoBehaviour
 
     public void ReceiveDamageEffect()
     {
+
         if (!healthController.IsDead)
         {
-            if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")) && !InvulneravilityActive) { 
+            if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")) && !InvulneravilityActive)
+            {
                 ReceivePartialDamage();
-            } else if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards"))) {
+            }
+            else if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+            {
                 ReceiveLethalDamage();
             }
-            
-        }
 
+        }
     }
 
     private void HealthController_OnDeath()

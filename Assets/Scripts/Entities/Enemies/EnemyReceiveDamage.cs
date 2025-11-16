@@ -13,7 +13,7 @@ public class EnemyReceiveDamage : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
-    private float originalY;
+    private Vector2 originalKnockbackPosition;
 
     private void Awake()
     {
@@ -21,7 +21,6 @@ public class EnemyReceiveDamage : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         circleCollider = GetComponent<CircleCollider2D>();
-        originalY = rb.position.y;
     }
 
     public void ReceiveDamage()
@@ -48,15 +47,18 @@ public class EnemyReceiveDamage : MonoBehaviour
 
     private void ApplyKnockback()
     {
+        originalKnockbackPosition = transform.position;
         circleCollider.enabled = false;
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, knockbackForce);
+        //rb.linearVelocity = new Vector2(rb.linearVelocity.x, knockbackForce);
+        rb.linearVelocity = transform.up * knockbackForce;
+
     }
 
     private void ResetKnockback()
     {
         rb.linearVelocity = Vector2.zero;
         circleCollider.enabled = true;
-        rb.position = new Vector2(rb.position.x, originalY); // Devuelvo el sprite a la posicion Y original para evitar que quede flotan
+        rb.position = originalKnockbackPosition; // Devuelvo el sprite a la posicion Y original para evitar que quede flotan
     }
 
     private void ApplyDamageColor()

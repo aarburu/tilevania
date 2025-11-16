@@ -316,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PertsonaiMugimendua
   mugiAbiadura: 5
   saltoIndarra: 18
+  maxJumpVelocity: 22
   ClimbingVelocity: 5
   ProyectileVelocity: 15
   ProyectilePrefab: {fileID: 3752090371712541613, guid: 778c07ad66eb81d438961a31fde30bab, type: 3}

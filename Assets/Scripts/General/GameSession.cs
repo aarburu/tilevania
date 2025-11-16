@@ -1,16 +1,25 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSession : Singleton<GameSession>
 {
+
+     float sceneLoadDelay = 1f;
     public int PlayerLives { get; private set; }
     public int MaxHealth { get; private set; }
     public int MaxLives { get; private set; } = 99; //TODO:: Quitar el hardcodeo.
     public int CurrentHealth { get; private set; }
 
-    public int Coins { get; private set; } = 0;
+    LevelManager levelManager;
 
+    public int Coins { get; private set; } = 0;
+    protected override void Awake()
+    {
+        base.Awake();
+        levelManager = FindFirstObjectByType<LevelManager>();
+    }
     public void InitializeHealth(int maxHealth)
     {
         MaxHealth = maxHealth;
@@ -41,8 +50,16 @@ public class GameSession : Singleton<GameSession>
         MaxHealth = 0;
         CurrentHealth = 0;
         InitializeCoins();
-        SceneManager.LoadScene(0);
+        levelManager.LoadGameOver();
+
+        StartCoroutine(WaitAndLoad("_GameOver", sceneLoadDelay));
     }
+    IEnumerator WaitAndLoad(string sceneName, float sceneLoadDelay)
+    {
+        yield return new WaitForSeconds(sceneLoadDelay);
+        SceneManager.LoadScene(sceneName);
+    }
+
 
     internal void ReloadScene()
     {

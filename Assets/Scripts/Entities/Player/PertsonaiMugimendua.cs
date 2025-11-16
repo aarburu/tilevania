@@ -8,6 +8,7 @@ public class PertsonaiMugimendua : MonoBehaviour
     Vector2 moveInput;
     [SerializeField] float mugiAbiadura = 5f;
     [SerializeField] float saltoIndarra = 18f;
+    [SerializeField] float maxJumpVelocity = 20f;
     [SerializeField] float ClimbingVelocity = 5f;
     [SerializeField] float ProyectileVelocity = 15f;
     [SerializeField] GameObject ProyectilePrefab;
@@ -107,8 +108,8 @@ public class PertsonaiMugimendua : MonoBehaviour
 
         if (IsInWater && !IsOnWaterSurface)
         {
-            float saltoEnAgua = saltoIndarra * 0.17f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, saltoEnAgua);
+            float jumpOnWater = saltoIndarra * 0.17f;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpOnWater);
         } else if (IsGrounded || IsOnWaterSurface)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, saltoIndarra);
@@ -116,14 +117,20 @@ public class PertsonaiMugimendua : MonoBehaviour
     }
     private void AjustarGravedad()
     {
+        if (rb.linearVelocityY > maxJumpVelocity)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, maxJumpVelocity);
+        }
+
         if (IsInWater)
         {
-            rb.gravityScale = gravityScale * 0.1f; // gravedad reducida en agua
+            rb.gravityScale = gravityScale * 0.1f; 
         }
         else if (!IsOnLadder)
         {
-            rb.gravityScale = gravityScale; // gravedad normal
+            rb.gravityScale = gravityScale; 
         }
+
     }
 
 
@@ -140,6 +147,10 @@ public class PertsonaiMugimendua : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
-            rb.linearVelocityY = 0.5f;
+        {
+            if (rb.linearVelocity.y < -1f)
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
+        }
     }
+
 }

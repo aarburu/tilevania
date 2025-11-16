@@ -712,7 +712,6 @@ GameObject:
   - component: {fileID: 5751433051046186789}
   - component: {fileID: 3458031424803027934}
   - component: {fileID: 3431110853615228501}
-  - component: {fileID: 4227397590577429621}
   m_Layer: 0
   m_Name: HealthUI
   m_TagString: Untagged
@@ -792,25 +791,6 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   flashInterval: 0.5
---- !u!114 &4227397590577429621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5695376592619069628}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c1de1eabb43d64d8db89af16381364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
-  HealthBarUI: {fileID: 5695376592619069628}
-  heartPrefab: {fileID: 8328865944779188547, guid: 0a2ce4522648cb74e8c37578c48f028b, type: 3}
-  FullHeartSprite: {fileID: 21300000, guid: 979092bc0e5d47d408dbad7ad241bb23, type: 3}
-  EmptyHeartSprite: {fileID: -705465144167411356, guid: 233974a2ce5597a458d1d857aec9e964, type: 3}
-  colourA: {r: 1, g: 0, b: 0, a: 1}
-  colourB: {r: 1, g: 1, b: 1, a: 1}
-  interval: 0.5
 --- !u!1 &7698837972765131237
 GameObject:
   m_ObjectHideFlags: 0

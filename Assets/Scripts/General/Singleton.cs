@@ -1,49 +1,70 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Singleton genérico para Unity.
+/// - Si existe manualmente en la escena, se mantiene al recargar la misma escena.
+/// - Si se cambia a otra escena, se destruye el viejo y se crea uno nuevo.
+/// - Usa DontDestroyOnLoad para persistir entre escenas.
+/// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
-    private static object _lock = new object();
-    private static bool _applicationIsQuitting = false;
+    private static string _sceneName;
 
     public static T Instance
     {
         get
         {
-            if (_applicationIsQuitting)
+            if (_instance == null)
             {
-                Debug.LogWarning($"[Singleton] Instance '{typeof(T)}' already destroyed on application quit. Won't create again.");
-                return null;
-            }
+                // Busca si ya existe en la escena
+                _instance = FindFirstObjectByType<T>();
 
-            lock (_lock)
-            {
                 if (_instance == null)
                 {
-                    _instance = (T)FindFirstObjectByType(typeof(T));
-
-                    if (FindObjectsByType(typeof(T), FindObjectsSortMode.None).Length > 1)
-                    {
-                        Debug.LogError($"[Singleton] Multiple instances of singleton {typeof(T)} detected!");
-                        return _instance;
-                    }
-
-                    if (_instance == null)
-                    {
-                        GameObject singletonObject = new GameObject();
-                        _instance = singletonObject.AddComponent<T>();
-                        singletonObject.name = $"{typeof(T)} (Singleton)";
-                        DontDestroyOnLoad(singletonObject);
-                    }
+                    // Si no existe, crea dinámicamente
+                    GameObject singletonObj = new GameObject(typeof(T).Name);
+                    _instance = singletonObj.AddComponent<T>();
                 }
 
-                return _instance;
+                // Guarda el nombre de la escena donde se creó
+                _sceneName = SceneManager.GetActiveScene().name;
             }
+            return _instance;
         }
     }
 
-    protected virtual void OnApplicationQuit()
+    protected virtual void Awake()
     {
-        _applicationIsQuitting = true;
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (_instance == null)
+        {
+            _instance = this as T;
+            _sceneName = currentScene;
+
+            // Desparentar antes de marcar como persistente
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            // Si estamos en otra escena distinta, destruye el viejo
+            if (_sceneName != currentScene)
+            {
+                Destroy(_instance.gameObject);
+                _instance = this as T;
+                _sceneName = currentScene;
+
+                transform.parent = null;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                // Si es la misma escena, destruye el duplicado
+                Destroy(gameObject);
+            }
+        }
     }
 }
