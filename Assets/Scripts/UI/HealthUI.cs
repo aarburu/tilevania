@@ -59,18 +59,25 @@ public class HealthUI : MonoBehaviour
         foreach (var heart in hearts) { Destroy(heart); }
         hearts.Clear();
         InitializeHearts(max);
+        UpdateHearts(max, max);
     }
 
     private void UpdateHearts(int current, int max)
     {
         if (this == null) return;
+        
+        if (hearts.Count != max)
+        {
+            InitializeHearts(max);
+        }
+
         for (int i = 0; i < hearts.Count; i++)
         {
             var sprite = i < current ? fullHeart : emptyHeart;
             hearts[i].GetComponent<Image>().sprite = sprite;
         }
 
-        if (current == 1)
+        if (current == 1 && hearts.Count > 0)
             StartFlashing();
         else
             StopFlashing();
@@ -104,7 +111,10 @@ public class HealthUI : MonoBehaviour
         bool toggle = false;
         while (true)
         {
-            this.transform.GetChild(0).GetComponent<Image>().color = toggle ? flashColor : normalColor;
+            if (this.transform.childCount > 0)
+            {
+                this.transform.GetChild(0).GetComponent<Image>().color = toggle ? flashColor : normalColor;
+            }
             toggle = !toggle;
             yield return new WaitForSeconds(flashInterval);
         }
