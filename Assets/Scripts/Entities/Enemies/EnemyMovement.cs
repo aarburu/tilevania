@@ -5,28 +5,25 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 1f;
     private Rigidbody2D rb;
+    private EnemyReceiveDamage damageScript;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        damageScript = GetComponent<EnemyReceiveDamage>();
     }
 
     void Update()
     {
-        //rb.linearVelocity = new Vector2(movementSpeed, rb.linearVelocity.y);
+        if (damageScript != null && damageScript.IsHurting) return;
         rb.linearVelocity = transform.right * movementSpeed;
     }
 
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Star")) return; //Si se choca con una estrella, no debería darse la vuelta.
-    //    movementSpeed *= -1;
-    //    FlipDirection();
-    //}
-
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (damageScript != null && damageScript.IsHurting) return;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             movementSpeed *= -1;
@@ -46,7 +43,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void FlipDirection()
     {
-        //transform.localScale = new Vector2(-(Mathf.Sign(rb.linearVelocity.x)), 1f);
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;

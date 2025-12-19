@@ -5,9 +5,6 @@ using UnityEngine;
 
     public abstract class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSingleton<T>
     {
-        /// <summary>
-        /// Instance del singleton
-        /// </summary>
         public static T Instance;
 
         public bool NewInstanceSustitutesOldOne;

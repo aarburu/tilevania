@@ -45,6 +45,12 @@ public class GameSession : Singleton<GameSession>
         CurrentHealth = Mathf.Clamp(current, 0, MaxHealth);
     }
 
+    public void AddMaxHealth(int amount)
+    {
+        MaxHealth += amount;
+        CurrentHealth = MaxHealth;
+    }
+
     public void ResetSession()
     {
         MaxHealth = 0;

@@ -14,6 +14,8 @@ public class EnemyReceiveDamage : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
     private Vector2 originalKnockbackPosition;
+    
+    public bool IsHurting { get; private set; }
 
     private void Awake()
     {
@@ -36,20 +38,30 @@ public class EnemyReceiveDamage : MonoBehaviour
 
     private IEnumerator PlayDamageEffects()
     {
+        // Knockback up
         ApplyKnockback();
         ApplyDamageColor();
 
         yield return new WaitForSeconds(knockbackDuration);
 
+        // Knockback down
+        ApplyKnockbackDown();
+        yield return new WaitForSeconds(knockbackDuration);
+
+        // Reset del knockback para asegurar que se queda al mismo nivel que al inicio.
         ResetKnockback();
         ResetDamageColor();
     }
 
+    private void ApplyKnockbackDown()
+    {
+        rb.linearVelocity = -transform.up * knockbackForce;
+    }
+
     private void ApplyKnockback()
     {
+        IsHurting = true;
         originalKnockbackPosition = transform.position;
-        circleCollider.enabled = false;
-        //rb.linearVelocity = new Vector2(rb.linearVelocity.x, knockbackForce);
         rb.linearVelocity = transform.up * knockbackForce;
 
     }
@@ -57,8 +69,8 @@ public class EnemyReceiveDamage : MonoBehaviour
     private void ResetKnockback()
     {
         rb.linearVelocity = Vector2.zero;
-        circleCollider.enabled = true;
-        rb.position = originalKnockbackPosition; // Devuelvo el sprite a la posicion Y original para evitar que quede flotan
+        rb.position = originalKnockbackPosition; 
+        IsHurting = false;
     }
 
     private void ApplyDamageColor()

@@ -20,13 +20,13 @@ public class PertsonaiMugimendua : MonoBehaviour
     float gravityScale;
     bool ControlsDisabled = false;
 
-    private bool IsGrounded => FeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+    private bool IsGrounded => FeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Platform"));
     
     private bool IsOnLadder => !FeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && BodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")); 
 
     private bool CanClimbLadder => FeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && BodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
     private bool IsInWater => BodyCollider.IsTouchingLayers(LayerMask.GetMask("Water"));
-    private bool IsOnWaterSurface => BodyCollider.IsTouchingLayers(LayerMask.GetMask("WaterSurface"));
+    private bool IsOnWaterSurface => BodyCollider.IsTouchingLayers(LayerMask.GetMask("WaterSurface")) || FeetCollider.IsTouchingLayers(LayerMask.GetMask("WaterSurface"));
 
     private void Start()
     {
@@ -54,7 +54,6 @@ public class PertsonaiMugimendua : MonoBehaviour
         var CreatedStar = Instantiate(ProyectilePrefab, ProyectileSpawnPoint.position, ProyectileSpawnPoint.rotation);
         float direction = transform.localScale.x > 0 ? -1f : 1f;
 
-        // Aplicar velocidad al Rigidbody2D del proyectil
         CreatedStar.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(direction * ProyectileVelocity, 0f);
 
     }
@@ -106,13 +105,14 @@ public class PertsonaiMugimendua : MonoBehaviour
     {
         if (ControlsDisabled) return;
 
-        if (IsInWater && !IsOnWaterSurface)
+        if (IsGrounded || IsOnWaterSurface)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, saltoIndarra);
+        }
+        else if (IsInWater)
         {
             float jumpOnWater = saltoIndarra * 0.17f;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpOnWater);
-        } else if (IsGrounded || IsOnWaterSurface)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, saltoIndarra);
         }
     }
     private void AjustarGravedad()
@@ -124,14 +124,22 @@ public class PertsonaiMugimendua : MonoBehaviour
 
         if (IsInWater)
         {
-            rb.gravityScale = gravityScale * 0.1f; 
+            rb.gravityScale = gravityScale * 0.1f;
+            if (!IsOnWaterSurface)
+            {
+                float maxWaterVelocityY = 3f; 
+                if (rb.linearVelocityY > maxWaterVelocityY)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocityX, maxWaterVelocityY);
+                }
+            }
         }
         else if (!IsOnLadder)
         {
-            rb.gravityScale = gravityScale; 
+            rb.gravityScale = gravityScale;
         }
-
     }
+
 
 
     void Run()

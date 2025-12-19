@@ -13,30 +13,23 @@ public class HitTarget : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var IsTouchingGround = StarCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
-        var IsTouchingEnemy = StarCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"));
-        if (IsTouchingGround || IsTouchingEnemy)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            if (IsTouchingGround)
-            {
-                StarRigidBody.linearVelocity = Vector3.zero;
-                StarRigidBody.gravityScale = 0;
+            StarRigidBody.linearVelocity = Vector3.zero;
+            StarRigidBody.gravityScale = 0;
 
-                //TODO:: Añadir sonido al chocar con suelo.
-                StartCoroutine(DelayedDespawn());
-            }
-            if (IsTouchingEnemy)
+            StartCoroutine(DelayedDespawn());
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        {
+            var Enemy = collision.gameObject;
+            var ReceiveDamageScript = Enemy.GetComponent<EnemyReceiveDamage>();
+            if (ReceiveDamageScript != null)
             {
-                var Enemy = collision.gameObject;
-                var ReceiveDamageScript = Enemy.GetComponent<EnemyReceiveDamage>();
-                if (ReceiveDamageScript != null)
-                {
-                    ReceiveDamageScript.ReceiveDamage();
-                }
-
-                //TODO:: Añadir sonido al chocar con un enemigo.
-                Destroy(this.gameObject);
+                ReceiveDamageScript.ReceiveDamage();
             }
+            
+            Destroy(this.gameObject);
         }
     }
 

@@ -19,16 +19,30 @@ public class HealthUI : MonoBehaviour
 
     private List<GameObject> hearts = new();
     private Coroutine flashRoutine;
+    private HealthController healthController;
 
     public void Bind(HealthController health)
     {
-        InitializeHearts(health.MaxHealth);
-        UpdateHearts(health.CurrentHealth, health.MaxHealth);
-        UpdateLives(health.PlayerLives);
+        this.healthController = health;
+        InitializeHearts(this.healthController.MaxHealth);
+        UpdateHearts(this.healthController.CurrentHealth, this.healthController.MaxHealth);
+        UpdateLives(this.healthController.PlayerLives);
 
-        health.OnLivesChanged += UpdateLives;
-        health.OnHealthChanged += UpdateHearts;
-        health.OnDeath += StopFlashing;
+        this.healthController.OnLivesChanged += UpdateLives;
+        this.healthController.OnHealthChanged += UpdateHearts;
+        this.healthController.OnMaxHealthChanged += UpdateMaxHearts;
+        this.healthController.OnDeath += StopFlashing;
+    }
+
+    private void OnDestroy()
+    {
+        if (healthController != null)
+        {
+            healthController.OnLivesChanged -= UpdateLives;
+            healthController.OnHealthChanged -= UpdateHearts;
+            healthController.OnMaxHealthChanged -= UpdateMaxHearts;
+            healthController.OnDeath -= StopFlashing;
+        }
     }
 
     private void InitializeHearts(int max)
@@ -40,8 +54,16 @@ public class HealthUI : MonoBehaviour
         }
     }
 
+    private void UpdateMaxHearts(int max)
+    {
+        foreach (var heart in hearts) { Destroy(heart); }
+        hearts.Clear();
+        InitializeHearts(max);
+    }
+
     private void UpdateHearts(int current, int max)
     {
+        if (this == null) return;
         for (int i = 0; i < hearts.Count; i++)
         {
             var sprite = i < current ? fullHeart : emptyHeart;
@@ -56,6 +78,7 @@ public class HealthUI : MonoBehaviour
 
     private void UpdateLives(int currentLives)
     {
+        if (this == null) return;
         this.livesText.text = $"Lives: {currentLives.ToString()}";
     }
 
@@ -67,6 +90,7 @@ public class HealthUI : MonoBehaviour
 
     private void StopFlashing()
     {
+        if (this == null) return;
         if (flashRoutine != null)
         {
             StopCoroutine(flashRoutine);

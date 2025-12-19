@@ -14,6 +14,7 @@ public class HealthController : MonoBehaviour
 
     public event Action<int> OnLivesChanged;
     public event Action<int, int> OnHealthChanged;
+    public event Action<int> OnMaxHealthChanged;
     public event Action OnDeath;
 
     private void Start()
@@ -114,5 +115,13 @@ public class HealthController : MonoBehaviour
         
 
         GameSession.Instance.ReloadScene();
+    }
+
+    public void AddMaxHealth(int amount = 1)
+    {
+        MaxHealth += amount;
+        CurrentHealth = MaxHealth;
+        GameSession.Instance?.AddMaxHealth(amount);
+        OnMaxHealthChanged?.Invoke(MaxHealth);
     }
 }
