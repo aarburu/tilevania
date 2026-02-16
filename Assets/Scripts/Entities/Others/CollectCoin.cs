@@ -7,26 +7,24 @@ public class CollectCoin : MonoBehaviour
     [SerializeField] AudioClip CoinCollectAudio;
     [SerializeField] CoinData CoinData;
 
-    CoinController CoinController;
+
 
     private void Start()
     {
         ItemCollider = GetComponent<Collider2D>();
-
-        var playerSetup = FindAnyObjectByType<PlayerSetup>();
-        if (playerSetup != null)
-        {
-            CoinController = playerSetup.GetComponent<CoinController>();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (ItemCollider.IsTouchingLayers(playerLayer))
         {
-            AudioSource.PlayClipAtPoint(CoinCollectAudio, transform.position);
-            CoinController.AddCoins(this.CoinData.CoinValue);
-            Destroy(this.gameObject);
+            CoinController coinController = other.GetComponent<CoinController>();
+            if (coinController != null)
+            {
+                AudioSource.PlayClipAtPoint(CoinCollectAudio, transform.position);
+                coinController.AddCoins(this.CoinData.CoinValue);
+                Destroy(this.gameObject);
+            }
         }
     }
 }

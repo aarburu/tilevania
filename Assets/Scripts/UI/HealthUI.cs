@@ -23,15 +23,27 @@ public class HealthUI : MonoBehaviour
 
     public void Bind(HealthController health)
     {
-        this.healthController = health;
-        InitializeHearts(this.healthController.MaxHealth);
-        UpdateHearts(this.healthController.CurrentHealth, this.healthController.MaxHealth);
-        UpdateLives(this.healthController.PlayerLives);
+        // Unsubscribe from previous controller if exists
+        if (this.healthController != null)
+        {
+            this.healthController.OnLivesChanged -= UpdateLives;
+            this.healthController.OnHealthChanged -= UpdateHearts;
+            this.healthController.OnMaxHealthChanged -= UpdateMaxHearts;
+            this.healthController.OnDeath -= StopFlashing;
+        }
 
+        this.healthController = health;
+        
+        // Subscribe to new controller
         this.healthController.OnLivesChanged += UpdateLives;
         this.healthController.OnHealthChanged += UpdateHearts;
         this.healthController.OnMaxHealthChanged += UpdateMaxHearts;
         this.healthController.OnDeath += StopFlashing;
+        
+        // Update UI immediately with current values
+        InitializeHearts(this.healthController.MaxHealth);
+        UpdateHearts(this.healthController.CurrentHealth, this.healthController.MaxHealth);
+        UpdateLives(this.healthController.PlayerLives);
     }
 
     private void OnDestroy()
@@ -47,6 +59,8 @@ public class HealthUI : MonoBehaviour
 
     private void InitializeHearts(int max)
     {
+        if (this == null) return;
+        
         for (int i = 0; i < max; i++)
         {
             var heart = Instantiate(heartPrefab, this.transform);
@@ -56,6 +70,8 @@ public class HealthUI : MonoBehaviour
 
     private void UpdateMaxHearts(int max)
     {
+        if (this == null) return;
+        
         foreach (var heart in hearts) { Destroy(heart); }
         hearts.Clear();
         InitializeHearts(max);
